@@ -1,6 +1,6 @@
 import React from "react"
-import { Search, controllerApp } from "../controllers/AppControllers"
-import Observer from "../entities/Observer"
+import { Search, controllerApp } from "../../controllers/AppControllers"
+import Observer from "../../entities/Observer"
 
 export const Level3 = () => {
   const [search, setSearch] = React.useState<Search>(controllerApp.search)

@@ -1,7 +1,7 @@
 import React from "react"
-import { controllerApp } from "../controllers/AppControllers"
-import Todo from "../entities/Todo"
-import Observer from "../entities/Observer"
+import { controllerApp } from "../@core/controllers/AppControllers"
+import Todo from "../@core/entities/Todo"
+import Observer from "../@core/entities/Observer"
 
 export const Table = () => {
   const [todos, setTodos] = React.useState<Todo[]>([])

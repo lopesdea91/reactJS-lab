@@ -1,5 +1,5 @@
 import React from 'react';
-import { controllerApp } from '../controllers/AppControllers';
+import { controllerApp } from '../@core/controllers/AppControllers';
 
 export const Form = () => {
   function onsubmit(e: React.FormEvent) {

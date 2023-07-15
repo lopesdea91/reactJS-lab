@@ -1,6 +1,6 @@
 import React from 'react'
-import { controllerApp, Search } from '../controllers/AppControllers'
-import Observer from '../entities/Observer'
+import { controllerApp, Search } from '../@core/controllers/AppControllers'
+import Observer from '../@core/entities/Observer'
 
 type IData = {
   search: Search

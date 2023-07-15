@@ -1,8 +1,8 @@
-import { controllerApp } from './controllers/AppControllers';
-import { Form } from './components/Form';
-import { Table } from './components/Table';
-import { Data } from './components/Data';
-import { Level1 } from './components/Level1';
+import { controllerApp } from './@core/controllers/AppControllers';
+import { Form } from './@core/framework/shared/Form';
+import { Table } from './@core/framework/shared/Table';
+import { Data } from './@core/framework/shared/Data';
+import { Level1 } from './@core/framework/shared/Level1';
 
 function App() {
   const getTodos = () => {
