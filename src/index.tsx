@@ -4,14 +4,16 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import App from './App';
 import './index.css'
 
+import HomeView from './@core/framework/views/Home/HomeView';
+import TodoListView from './@core/framework/views/TodoList/TodoListView';
+import TodoView from './@core/framework/views/TodoView/TodoView';
+
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
+  { path: "/", element: <HomeView /> },
+  { path: "/todo-list", element: <TodoListView /> },
+  { path: "/todo/:id", element: <TodoView /> },
 ]);
 
 
