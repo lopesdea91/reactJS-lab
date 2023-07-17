@@ -5,7 +5,7 @@ export type Search = {
   page: number
   limit: number
 }
-class ControllerApp extends Observable {
+class TodoController extends Observable {
   // constructor() {
   //   super()
   // }
@@ -17,14 +17,14 @@ class ControllerApp extends Observable {
     const url = `https://jsonplaceholder.typicode.com/todos?_page=${page}&_limit=${limit}`
     const todoData: Todo[] = await fetch(url).then(res => res.json())
 
-    this.notify('getTodos', todoData)
+    this.notify('todoList', todoData)
 
-    this.notify('controllerData', {
-      search: { page, limit },
-      length: todoData.length
-    })
+    // this.notify('controllerData', {
+    //   search: { page, limit },
+    //   length: todoData.length
+    // })
 
-    this.notify('level3', { page, limit })
+    // this.notify('level3', { page, limit })
   }
 
   public setSearch(values: Partial<Search>) {
@@ -33,6 +33,10 @@ class ControllerApp extends Observable {
       ...values
     })
   }
+
+  teste() {
+    return this.observers
+  }
 }
 
-export const controllerApp = new ControllerApp()
+export const todoController = new TodoController()

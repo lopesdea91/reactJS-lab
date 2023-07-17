@@ -1,25 +1,47 @@
 import Observer from "./Observer"
 
 export default class Observable {
-  private observers: Observer[] = []
+  public observers: Observer[] = []
 
   constructor() {
     this.observers = []
   }
 
-  register(observer: Observer) {
-    this.observers.push(observer)
-  }
+  async register(observer: Observer) {
+    await new Promise(resolve => {
+      const exist = this.observers.find(el => el.event === observer.event)
 
-  unregister(event: string) {
-    this.observers.slice(this.observers.findIndex(el => el.event === event), 1)
-  }
-
-  notify(event: string, data: unknown) {
-    for (const observer of this.observers) {
-      if (observer.event === event) {
-        observer.callback(data)
+      if (!exist) {
+        this.observers.push(observer)
       }
-    }
+
+      resolve('ok')
+    })
+  }
+
+  async unregister(event: string) {
+    await new Promise(resolve => {
+      this.observers = this.observers.filter(el => el.event !== event)
+
+      resolve('ok')
+    })
+  }
+
+  async notify(event: string, data: unknown) {
+    await new Promise(resolve => {
+      // for (const observer of this.observers) {
+      //   if (observer.event === event) {
+      //     observer.callback(data)
+      //   }
+      // }
+
+      this.observers.forEach((observer) => {
+        if (observer.event === event) {
+          observer.callback(data)
+        }
+      })
+
+      resolve('ok')
+    })
   }
 }
