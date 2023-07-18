@@ -5,10 +5,10 @@ import {
 } from "react-router-dom";
 
 import './index.css'
-
-import HomeView from './@core/framework/views/Home/HomeView';
-import TodoListView from './@core/framework/views/TodoList/TodoListView';
-import TodoView from './@core/framework/views/TodoView/TodoView';
+import Providers from './@core/framework/providers';
+import HomeView from './@core/presentention/views/Home/HomeView';
+import TodoListView from './@core/presentention/views/TodoList/TodoListView';
+import TodoView from './@core/presentention/views/TodoView/TodoView';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomeView /> },
@@ -16,14 +16,14 @@ const router = createBrowserRouter([
   { path: "/todo/:id", element: <TodoView /> },
 ]);
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-
 root.render(
-  <RouterProvider router={router} />
+  <Providers>
+    <RouterProvider router={router} />
+  </Providers>
 );
 
 // root.render(

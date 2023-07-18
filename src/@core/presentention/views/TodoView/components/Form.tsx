@@ -1,11 +1,13 @@
 import React from 'react'
 import Observer from '../../../../entities/Observer'
-import { todoController } from '../TodoController'
+import { todoController } from '../../../../controllers/TodoController'
 import Todo from '../../../../entities/Todo'
 import { useNavigate } from 'react-router-dom'
+import { useLayoutContext } from '../../../../framework/context/layoutContext'
 
 const Form = () => {
   const navigate = useNavigate()
+  const layoutContext = useLayoutContext()
   const [form, setForm] = React.useState<Todo>({
     id: 0,
     title: '',
@@ -27,24 +29,21 @@ const Form = () => {
 
     try {
       form.id
-        ? todoController.updateTodo()
-        : todoController.createTodo()
+        ? await todoController.updateTodo()
+        : await todoController.createTodo()
 
     } catch (error) {
       console.log('... error', error);
+
     } finally {
       navigate('/todo-list')
     }
   }
 
   async function handleDelete() {
-    try {
-      await todoController.deleteTodo()
-    } catch (error) {
-      console.log('... error', error);
-    } finally {
-      navigate('/todo-list')
-    }
+    await todoController.deleteTodo()
+
+    navigate('/todo-list')
   }
 
   return (
@@ -52,7 +51,7 @@ const Form = () => {
       <div className='flex flex-col gap-1 mb-3'>
         <label htmlFor="title">Title</label>
         <input
-          className='border-[1px]'
+          className='border-[1px] px-2'
           id='title'
           name='title'
           type='text'
@@ -63,21 +62,28 @@ const Form = () => {
               title: e.target.value
             })
           }}
+          disabled={layoutContext.loading}
         />
       </div>
 
       <div className='flex items-center gap-2'>
         <button
+          disabled={layoutContext.loading}
           className='px-4 py-1 text-sm border-2 border-gray-900 bg-slate-800 text-gray-200 hover:bg-white hover:text-gray-900 capitalize'
-          type='submit'>
+          type='submit'
+        >
           enviar
         </button>
 
         <button
-          disabled={!form.id}
+          disabled={!form.id || layoutContext.loading}
           onClick={handleDelete}
-          className='px-4 py-1 text-sm border-2 border-gray-900 bg-slate-800 text-gray-200 hover:bg-white hover:text-gray-900 disabled:opacity-20 capitalize'
-          type='button'>
+          className={[
+            'px-4 py-1 text-sm border-2 border-gray-900 bg-slate-800 text-gray-200 disabled:opacity-20 capitalize',
+            form.id ? 'hover:bg-white hover:text-gray-900' : '',
+          ].join(' ')}
+          type='button'
+        >
           remover
         </button>
       </div>

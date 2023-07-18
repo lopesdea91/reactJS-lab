@@ -1,3 +1,4 @@
+import { delay } from "../../utils/delay"
 import Observer from "./Observer"
 
 export default class Observable {
@@ -8,40 +9,28 @@ export default class Observable {
   }
 
   async register(observer: Observer) {
-    await new Promise(resolve => {
-      const exist = this.observers.find(el => el.event === observer.event)
+    await delay()
 
-      if (!exist) {
-        this.observers.push(observer)
-      }
+    const exist = this.observers.find(el => el.event === observer.event)
 
-      resolve('ok')
-    })
+    if (!exist) {
+      this.observers.push(observer)
+    }
   }
 
   async unregister(event: string) {
-    await new Promise(resolve => {
-      this.observers = this.observers.filter(el => el.event !== event)
+    await delay()
 
-      resolve('ok')
-    })
+    this.observers = this.observers.filter(el => el.event !== event)
   }
 
   async notify(event: string, data: unknown) {
-    await new Promise(resolve => {
-      // for (const observer of this.observers) {
-      //   if (observer.event === event) {
-      //     observer.callback(data)
-      //   }
-      // }
+    await delay(100)
 
-      this.observers.forEach((observer) => {
-        if (observer.event === event) {
-          observer.callback(data)
-        }
-      })
-
-      resolve('ok')
-    })
+    for (const observer of this.observers) {
+      if (observer.event === event) {
+        observer.callback(data)
+      }
+    }
   }
 }
