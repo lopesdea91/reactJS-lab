@@ -4,6 +4,7 @@ import { todoController } from '../../../../controllers/TodoController'
 import Todo from '../../../../entities/Todo'
 import { useNavigate } from 'react-router-dom'
 import { useLayoutContext } from '../../../../framework/context/layoutContext'
+import Input from '../../../shared/Input'
 
 const Form = () => {
   const navigate = useNavigate()
@@ -50,7 +51,7 @@ const Form = () => {
     <form onSubmit={handleSubmit}>
       <div className='flex flex-col gap-1 mb-3'>
         <label htmlFor="title">Title</label>
-        <input
+        <Input
           className='border-[1px] px-2'
           id='title'
           name='title'

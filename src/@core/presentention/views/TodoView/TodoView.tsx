@@ -3,14 +3,15 @@ import Layout from '../../layouts'
 import { useParams } from 'react-router-dom'
 import { todoController } from '../../../controllers/TodoController'
 import Form from './components/Form'
+import Title from '../../shared/Title'
+import TitleLoading from '../../shared/TitleLoading'
 import { useLayoutContext } from '../../../framework/context/layoutContext'
 
 const TodoView = () => {
+  const layoutContext = useLayoutContext()
   const params = useParams()
   const isEdit = Number.isInteger(Number(params.id))
   const currentAction = isEdit ? 'update' : 'create'
-
-  const layoutContext = useLayoutContext()
 
   async function handler() {
     if (isEdit) {
@@ -28,11 +29,9 @@ const TodoView = () => {
 
   return (
     <Layout>
-      <div className='flex items-center justify-between mb-3'>
-        <h1 className='text-2xl'>Page: {currentAction} todo</h1>
-        {layoutContext.loading && <span className='inline-block text-lg'>loading ...</span>}
-      </div>
-
+      <Title title={`Page: ${currentAction} todo`}>
+        <TitleLoading status={layoutContext.loading} />
+      </Title>
       <Form />
     </Layout>
   )

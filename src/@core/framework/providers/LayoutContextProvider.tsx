@@ -6,10 +6,14 @@ import Observer from '../../entities/Observer'
 export const LayoutContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = React.useState<boolean>(false)
 
-  React.useEffect(() => {
+  function handler() {
     layoutController.register(new Observer('loading', (value: boolean) => {
       setLoading(value)
     }))
+  }
+
+  React.useEffect(() => {
+    handler()
 
     return () => {
       layoutController.unregister('loading')
@@ -20,10 +24,6 @@ export const LayoutContextProvider = ({ children }: { children: React.ReactNode 
     <LayoutContext.Provider value={{
       loading
     }}>
-      {/* <div className='flex gap-2'>
-        <button className='bg-red-300 px-3' onClick={(() => setLoading(true))}>1</button>
-        <button className='bg-red-300 px-3' onClick={(() => setLoading(false))}>2</button>
-      </div> */}
       {children}
     </LayoutContext.Provider>
   )
