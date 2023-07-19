@@ -4,7 +4,7 @@ import { LayoutControllerBase } from "./LayoutControllerBase";
 
 class LayoutController extends Observable implements LayoutControllerBase {
   async setLoading(value: boolean) {
-    await delay()
+    // await delay(50)
 
     this.notify('loading', value)
   }
