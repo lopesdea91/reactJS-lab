@@ -1,0 +1,5 @@
+<template>
+  <main class="max-w-4xl mx-auto px-4">
+    <slot />
+  </main>
+</template>
