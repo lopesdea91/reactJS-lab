@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "timestemp": 1689848831528,
+      "authorId": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "authors": [
+    {
+      "id": 1,
+      "name": "author 1",
+      "postId": 1
+    }
+  ]
+}
