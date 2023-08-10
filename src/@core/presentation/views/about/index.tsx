@@ -4,7 +4,7 @@ import Layout from '../../layout'
 export const AboutView = () => {
   return (
     <Layout>
-      HomeView
+      AboutView
     </Layout>
   )
 }
