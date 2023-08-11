@@ -1,11 +1,12 @@
 import React, { FC, ReactNode } from 'react'
-import { Header, Main } from './partials'
+import { Feedback, Header, Main } from './partials'
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
       <Header />
       <Main>
+        <Feedback />
         {children}
       </Main>
     </>
