@@ -12,7 +12,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(($props, ref) => {
     <div className='w-full'>
       {label && <label
         htmlFor={currentId}
-        className="block mb-1 text-sm font-medium text-gray-800 dark:text-white/50">
+        className="block mb-1 text-sm font-medium text-gray-800">
         {label}
       </label>
       }

@@ -1,14 +1,28 @@
-import React, { FC, ReactNode } from 'react'
-import { Feedback, Header, Main } from './partials'
+import { FC, ReactNode } from 'react'
+import { usePrepareStoreHook } from '../../framework/hook'
+import { Header, Loading, Main, Modal } from './partials'
+import SetupObserver from './setupObserver'
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
+  const { pending } = usePrepareStoreHook()
+
   return (
     <>
-      <Header />
-      <Main>
-        <Feedback />
-        {children}
-      </Main>
+      <SetupObserver />
+
+      {pending
+        ? (
+          <Loading />
+        ) : (
+          <>
+            <Modal />
+            <Header />
+            <Main>
+              {children}
+            </Main>
+          </>
+        )
+      }
     </>
   )
 }
