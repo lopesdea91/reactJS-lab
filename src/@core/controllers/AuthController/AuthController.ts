@@ -3,6 +3,7 @@ import {
   RedirectObserverPublish,
   SignInObserverPublish,
   SignOutObserverPublish,
+  FormErrorOberverPublish,
 } from "../../domain/observer";
 import observer from "../../domain/observer/Observer";
 
@@ -32,8 +33,7 @@ export class AuthController {
       );
     } catch (err) {
       const error = err as Error;
-
-      console.log("... error", error);
+      await observer.publish(new FormErrorOberverPublish(error.message));
     } finally {
       await observer.publish(new LoadingObserverPublish(false));
     }

@@ -5,6 +5,8 @@ import Button from '../../ui/Button'
 import { useForm, zod, zodResolver } from '../../../../framework/plugins/react-hook-form'
 import { authController } from '../../../../controllers/AuthController'
 import { useLoadingStore } from '../../../../framework/store'
+import observer from '../../../../domain/observer/Observer'
+import { FormErrorOberverSubscribe } from '../../../../domain/observer'
 
 export const AuthForm = () => {
   const { errors, handleSubmit, register } = useFields()
@@ -70,9 +72,11 @@ const useFields = () => {
   } = useForm<FormSchema>({ defaultValues, resolver: zodResolver(formSchema) });
 
   React.useEffect(() => {
-    // appController.subscribeWatcher('feedbackForm', (message: string) => {
-    //   setError('feedback', { message })
-    // })
+    observer.subscribe(new FormErrorOberverSubscribe((message: string) => {
+      setError('feedback', { message })
+    }))
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {
