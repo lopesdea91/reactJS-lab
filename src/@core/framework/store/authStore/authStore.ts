@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { IAuth } from "../../../domain/entities/Auth";
 
-interface IAuthStore {
+export interface IAuthStore {
   data: {
     logged: boolean;
     user: IAuth;
@@ -20,7 +20,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
   },
   setLogin: (value) =>
     set((state) => {
-      const newData = structuredClone(state.data);
+      const newData = JSON.parse(JSON.stringify(state.data));
       newData.logged = value;
 
       return {
@@ -30,7 +30,7 @@ export const useAuthStore = create<IAuthStore>((set, get) => ({
     }),
   setData: (value) =>
     set((state) => {
-      const newData = structuredClone(state.data);
+      const newData = JSON.parse(JSON.stringify(state.data));
       newData.user = value;
 
       return {

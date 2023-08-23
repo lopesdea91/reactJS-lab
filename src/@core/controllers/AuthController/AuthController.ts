@@ -40,23 +40,23 @@ export class AuthController {
   }
 
   async signOut() {
-    try {
-      await observer.publish(new LoadingObserverPublish(true));
+    // try {
+    await observer.publish(new LoadingObserverPublish(true));
 
-      await new Promise((res) => setTimeout(res, 1250));
+    await new Promise((res) => setTimeout(res, 1250));
 
-      await observer.publish(new SignOutObserverPublish());
+    await observer.publish(new SignOutObserverPublish());
 
-      await observer.publish(new RedirectObserverPublish("/"));
+    await observer.publish(new RedirectObserverPublish("/"));
 
-      window.localStorage.removeItem("auth-reactJS-observerZustand");
-    } catch (err) {
-      const error = err as Error;
+    window.localStorage.removeItem("auth-reactJS-observerZustand");
+    // } catch (err) {
+    //   const error = err as Error;
 
-      console.log("... error", error);
-    } finally {
-      await observer.publish(new LoadingObserverPublish(false));
-    }
+    //   console.log("... error", error);
+    // } finally {
+    await observer.publish(new LoadingObserverPublish(false));
+    // }
   }
 }
 

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface ILoadingStore {
+export interface ILoadingStore {
   loading: boolean;
   setStatus: (p: boolean) => void;
 }

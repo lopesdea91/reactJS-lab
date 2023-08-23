@@ -5,7 +5,7 @@ interface ISearch {
   page: number;
 }
 
-interface IPostStore {
+export interface IPostStore {
   data: {
     posts: IPost[];
     search: ISearch;
@@ -23,7 +23,7 @@ export const usePostStore = create<IPostStore>((set, get) => ({
   },
   setPosts: (value) =>
     set((state) => {
-      const newData = structuredClone(state.data);
+      const newData = JSON.parse(JSON.stringify(state.data));
       newData.posts = value;
 
       return {
@@ -33,7 +33,7 @@ export const usePostStore = create<IPostStore>((set, get) => ({
     }),
   setSearch: (value) =>
     set((state) => {
-      const newData = structuredClone(state.data);
+      const newData = JSON.parse(JSON.stringify(state.data));
       newData.search = value;
 
       return {
