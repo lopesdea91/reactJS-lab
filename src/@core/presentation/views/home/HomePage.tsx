@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react'
 import { useAuthStore, useLoadingStore, usePostStore } from '../../../framework/store'
-import { IPost } from '../../../domain/entities/Post';
 import { Posts } from './components/Posts'
+import { postsApi } from '../../../infra/api';
+import { http } from '../../../infra/http/http';
 
 export const HomeView: FC = () => {
   const authStore = useAuthStore()
@@ -9,10 +10,8 @@ export const HomeView: FC = () => {
   const loadingStore = useLoadingStore()
 
   async function getData() {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=12')
-    const result = await response.json() as IPost[]
-
-    postStore.setPosts(result)
+    const { data } = await postsApi(http).get()
+    postStore.setPosts(data)
   }
 
   useEffect(() => {

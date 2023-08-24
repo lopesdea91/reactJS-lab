@@ -22,18 +22,19 @@ export const usePrepareStoreHook = () => {
         type: "modal",
         el: <AuthForm />,
       });
-
     }
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1250);
-    });
+    // await new Promise((resolve) => {
+    //   setTimeout(resolve, 1250);
+    // });
 
     setStatus(false);
   }
 
   React.useEffect(() => {
     init();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
