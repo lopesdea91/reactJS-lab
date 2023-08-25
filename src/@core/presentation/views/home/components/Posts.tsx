@@ -23,6 +23,7 @@ export const Posts = ({ posts, logged }: PostsProps) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {postsFormated.map(post => (
         <div
+          data-testid={`post-${post.id}`}
           key={post.id}
           className={cssMerge(
             'p-4 rounded border-[1px] shadow-lg shadow-zinc-300',

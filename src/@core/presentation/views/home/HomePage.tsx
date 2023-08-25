@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react'
 import { useAuthStore, useLoadingStore, usePostStore } from '../../../framework/store'
 import { Posts } from './components/Posts'
 import { postsApi } from '../../../infra/api';
-import { http } from '../../../infra/http/http';
+import { http } from '../../../infra/http';
 
 export const HomeView: FC = () => {
   const authStore = useAuthStore()

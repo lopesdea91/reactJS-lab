@@ -4,7 +4,6 @@ class Http implements IHttpClient {
   async get<R>(url: string) {
     const response = await fetch(url, { method: "GET" });
     const result = await response.json();
-
     return {
       status: response.status,
       data: result as R,
@@ -38,7 +37,6 @@ class Http implements IHttpClient {
     const response = await fetch(url, {
       method: "DELETE",
     });
-    const result = await response.json();
 
     return {
       status: response.status,
