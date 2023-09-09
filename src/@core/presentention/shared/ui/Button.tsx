@@ -1,18 +1,18 @@
 import React from 'react'
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { }
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { }
 
-const Input = ({ className, ...rest }: InputProps) => {
+export const Button = ({ children, className, ...rest }: ButtonProps) => {
   return (
-    <input
+    <button
       className={
         [
           'px-4 py-1 text-sm border-2 border-gray-900 bg-slate-800 text-gray-200 hover:bg-white hover:text-gray-900 capitalize',
           className
         ].join('')}
       {...rest}
-    />
+    >
+      {children}
+    </button>
   )
 }
-
-export default Input

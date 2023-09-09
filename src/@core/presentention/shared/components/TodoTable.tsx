@@ -1,21 +1,21 @@
-import React from 'react'
-import { todoListController } from '../../../../controllers/TodoListController'
-import Observer from '../../../../entities/Observer'
-import Todo from '../../../../entities/Todo'
-import { useNavigate } from 'react-router-dom'
+import React, { FC } from 'react'
+import Todo from '../../../entities/Todo'
 
-export const TodoTable = () => {
-  const navigate = useNavigate()
+interface TodoTableProps {
+  execute: (p: React.Dispatch<React.SetStateAction<Todo[]>>) => () => void
+  editId: (todo: Todo) => void
+}
+export const TodoTable: FC<TodoTableProps> = ({ execute, editId }) => {
   const [todos, setTodo] = React.useState<Todo[]>([])
 
   React.useEffect(() => {
-    todoListController.register(new Observer('todoList', (data: Todo[]) => {
-      setTodo(data)
-    }))
+    const executeDown = execute(setTodo)
 
     return () => {
-      todoListController.unregister('todoList')
+      executeDown()
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -34,7 +34,7 @@ export const TodoTable = () => {
             <td className='border-[1px] border-gray-900 capitalize px-2 py-1 text-center'>
               <button
                 className='border-[1px] border-gray-900 font-sm px-2 hover:bg-gray-800/75 hover:text-white'
-                onClick={() => navigate(`/todo/${todo.id}`)}
+                onClick={() => editId(todo)}
               >Edit</button>
             </td>
             <td className='border-[1px] border-gray-900 capitalize px-2 py-1 text-center'>{todo.id}</td>

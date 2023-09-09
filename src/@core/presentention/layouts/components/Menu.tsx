@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 const links = [
   { label: 'home', to: '/' },
-  { label: 'todo list', to: '/todo-list' },
-  { label: 'new todo', to: '/todo/new' },
+  { label: 'EventCallback', to: '/observer-eventCallback' },
+  { label: 'EventValueClass', to: '/observer-eventValueClass' },
+  { label: 'EventValueFunction', to: '/observer-eventValueFunction' },
 ]
 
 const Menu = () => {

@@ -7,13 +7,15 @@ import {
 import './index.css'
 import Providers from './@core/framework/providers';
 import HomeView from './@core/presentention/views/Home/HomeView';
-import TodoListView from './@core/presentention/views/TodoList/TodoListView';
-import TodoView from './@core/presentention/views/TodoView/TodoView';
+import { ObserverEventCallback } from './@core/presentention/views/ObserverEventCallback';
+import { ObserverValueClass } from './@core/presentention/views/ObserverValueClass';
+import { ObserverValueFunction } from './@core/presentention/views/ObserverValueFunction';
 
 const router = createBrowserRouter([
   { path: "/", element: <HomeView /> },
-  { path: "/todo-list", element: <TodoListView /> },
-  { path: "/todo/:id", element: <TodoView /> },
+  { path: "/observer-eventCallback", element: <ObserverEventCallback /> },
+  { path: "/observer-eventValueClass", element: <ObserverValueClass /> },
+  { path: "/observer-eventValueFunction", element: <ObserverValueFunction /> },
 ]);
 
 const root = ReactDOM.createRoot(
@@ -25,9 +27,3 @@ root.render(
     <RouterProvider router={router} />
   </Providers>
 );
-
-// root.render(
-//   <React.StrictMode>
-//     <RouterProvider router={router} />
-//   </React.StrictMode>
-// );

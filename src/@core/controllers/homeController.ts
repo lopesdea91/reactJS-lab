@@ -1,28 +1,21 @@
-import Observable from "../entities/Observable";
-import Todo from "../entities/Todo";
+import { observable_function } from "../entities/Observable_function";
 
-const url = `https://jsonplaceholder.typicode.com/todos`
-
-class HomeController extends Observable {
-  private nameCards: string[] = []
+class HomeController {
+  private nameCards: string[] = [];
 
   public async cardReady(nameCard: string) {
-    this.nameCards.push(nameCard)
+    this.nameCards.push(nameCard);
   }
   async cardUnMonted(nameCard: string) {
-    this.nameCards = this.nameCards.filter(currentNameCard => currentNameCard !== nameCard)
+    this.nameCards = this.nameCards.filter(
+      (currentNameCard) => currentNameCard !== nameCard
+    );
   }
-  public reloadCards() {
+  async reloadCards() {
     for (const nameCard of this.nameCards) {
-      this.notify(nameCard, undefined)
+      observable_function.publish(nameCard, null);
     }
-  }
-
-  public async getTodoById(id: number) {
-    const todoData: Todo = await fetch(`${url}/${id}`).then(r => r.json())
-
-    return todoData
   }
 }
 
-export const homeController = new HomeController()
+export const homeController = new HomeController();

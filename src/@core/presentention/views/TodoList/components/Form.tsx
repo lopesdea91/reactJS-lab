@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLayoutContext } from '../../../../framework/context/layoutContext'
 import { Input } from '../../../shared/ui'
 
-const Form = () => {
+export const TodoForm = () => {
   const navigate = useNavigate()
   const layoutContext = useLayoutContext()
   const [form, setForm] = React.useState<Todo>({
@@ -91,5 +91,3 @@ const Form = () => {
     </form>
   )
 }
-
-export default Form

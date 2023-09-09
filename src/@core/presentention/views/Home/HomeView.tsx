@@ -1,14 +1,9 @@
 import React from 'react'
 import Layout from '../../layouts'
 import { useLayoutContext } from '../../../framework/context/layoutContext'
-import Title from '../../shared/Title'
-import TitleLoading from '../../shared/TitleLoading'
-import Card from './components/Card'
 import { homeController } from '../../../controllers/homeController'
-import Actions from './components/Actions'
-import Button from '../../shared/Button'
-import Input from '../../shared/Input'
-import CardRoot from './components/CardRoot'
+import { Button, Input, Title } from '../../shared/ui'
+import { Card } from './components'
 
 let timeout: NodeJS.Timeout
 
@@ -40,11 +35,12 @@ const HomeView = () => {
 
   return (
     <Layout>
-      <Title title='Home'>
-        <TitleLoading status={layoutContext.loading} />
-      </Title>
+      <Title.Root>
+        <Title.Text text='Home' />
+        <Title.Loading status={layoutContext.loading} />
+      </Title.Root>
 
-      <Actions>
+      <div className='flex gap-2'>
         <Input
           className='w-[76.82px]'
           max={15}
@@ -56,13 +52,13 @@ const HomeView = () => {
         <Button onClick={incrementIds}>card +</Button>
         <Button onClick={decrementIds}>card -</Button>
         <Button onClick={reload}>reload</Button>
-      </Actions>
+      </div>
 
       <p className='my-2'>{JSON.stringify(ids)}</p>
 
-      <CardRoot>
-        {ids.map(id => <Card key={id} id={id} />)}
-      </CardRoot>
+      <Card.Root>
+        {ids.map(id => <Card.Item key={id} id={id} />)}
+      </Card.Root>
     </Layout>
   )
 }

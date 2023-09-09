@@ -1,10 +1,9 @@
 import React from 'react'
 import Layout from '../../layouts'
-import Table from './components/Table'
 import { todoListController } from '../../../controllers/TodoListController'
 import { useLayoutContext } from '../../../framework/context/layoutContext'
-import Title from '../../shared/Title'
-import TitleLoading from '../../shared/TitleLoading'
+import { TodoForm, TodoTable } from './components'
+import { Title } from '../../shared/ui'
 
 const TodoListView = () => {
   const layoutContext = useLayoutContext()
@@ -19,10 +18,13 @@ const TodoListView = () => {
 
   return (
     <Layout>
-      <Title title='Page: todo list'>
-        <TitleLoading status={layoutContext.loading} />
-      </Title>
-      <Table />
+      <Title.Root>
+        <Title.Text text='Page: todo list' />
+        <Title.Loading status={layoutContext.loading} />
+      </Title.Root>
+
+      <TodoForm />
+      <TodoTable />
     </Layout>
   )
 }

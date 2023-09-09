@@ -3,8 +3,6 @@ import Layout from '../../layouts'
 import { useParams } from 'react-router-dom'
 import { todoController } from '../../../controllers/TodoController'
 import Form from './components/Form'
-import Title from '../../shared/Title'
-import TitleLoading from '../../shared/TitleLoading'
 import { useLayoutContext } from '../../../framework/context/layoutContext'
 
 const TodoView = () => {
@@ -29,9 +27,9 @@ const TodoView = () => {
 
   return (
     <Layout>
-      <Title title={`Page: ${currentAction} todo`}>
+      {/* <Title title={`Page: ${currentAction} todo`}>
         <TitleLoading status={layoutContext.loading} />
-      </Title>
+      </Title> */}
       <Form />
     </Layout>
   )

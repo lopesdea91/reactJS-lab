@@ -1,12 +1,15 @@
 import React from 'react'
 import { homeController } from '../../../../controllers/homeController'
-import Observer from '../../../../entities/Observer'
 import Todo from '../../../../entities/Todo'
+import { observable_function } from '../../../../entities/Observable_function'
+import { todoApi } from '../../../../infra/Api/TodoApi'
+import { LoadingObserver, observerValueFunction } from '../../../../entities/ObserverValueFunction'
+import { delay } from '../../../../../utils/delay'
 
 interface Cardprops {
   id: number
 }
-const Card = ({ id }: Cardprops) => {
+const CardItem = ({ id }: Cardprops) => {
   const [status, setStatus] = React.useState(true)
   const [todo, setTodo] = React.useState<Todo | null>(null)
 
@@ -14,40 +17,59 @@ const Card = ({ id }: Cardprops) => {
   const keyReloadCard = `key-card-${id}`
 
   async function getTodo() {
+    observerValueFunction.publish(LoadingObserver({ data: true }))
     setStatus(true)
 
-    const todoData = await homeController.getTodoById(id)
+    await delay(1500)
+
+    const todoData = await todoApi.getById(id)
+
     setTodo(todoData)
 
+    observerValueFunction.publish(LoadingObserver({ data: false }))
     setStatus(false)
   }
 
-  async function handler() {
-    await homeController.register(new Observer(nameCard, (data: Todo) => {
-      setTodo(data)
-      setStatus(false)
-    }))
-    await homeController.register(new Observer(keyReloadCard, () => {
-      getTodo()
-    }))
+  function up() {
+    let nameDown: Function
+    let reloadDown: Function
 
-    await homeController.cardReady(keyReloadCard)
+    observable_function.subscribe({
+      event: nameCard,
+      callback: (data: Todo) => {
+        setTodo(data)
+        setStatus(false)
+      }
+    }).then(d => nameDown = d)
 
-    await getTodo()
+    observable_function.subscribe({
+      event: keyReloadCard,
+      callback: getTodo
+    }).then(d => reloadDown = d)
+
+    homeController.cardReady(keyReloadCard)
+
+    getTodo()
+
+    return () => {
+      nameDown()
+      reloadDown()
+    }
   }
 
   React.useEffect(() => {
-    handler()
+    const down = up()
 
-    return () => {
-      homeController.unregister(nameCard)
-      homeController.unregister(keyReloadCard)
-      homeController.cardUnMonted(keyReloadCard)
-    }
+    return () => down()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className='border-[1px] border-gray-400 p-2 rounded-sm shadow-sm cursor-pointer hover:bg-slate-100 hover:shadow-lg' onClick={getTodo}>
+    <div
+      className='border-[1px] border-gray-400 p-2 rounded-sm shadow-sm cursor-pointer hover:bg-slate-100 hover:shadow-lg'
+      onClick={() => getTodo()}
+    >
       <div className='flex items-center justify-between'>
         <h3>Card: (id: {id})</h3>
         <span className='text-xs'>{status ? 'loading' : ''}</span>
@@ -58,4 +80,15 @@ const Card = ({ id }: Cardprops) => {
   )
 }
 
-export default Card
+const CardRoot = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className='grid grid-cols-2 md:grid-cols-4 gap-2'>
+      {children}
+    </div>
+  )
+}
+
+export const Card = {
+  Root: CardRoot,
+  Item: CardItem,
+}
